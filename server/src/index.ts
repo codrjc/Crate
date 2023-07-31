@@ -1,8 +1,10 @@
 import express, { Express, Request, Response } from "express";
 import mongose from "mongoose";
+require("dotenv").config();
+
 const app = express();
-const uri =
-  "mongodb+srv://admin:NLviz6x8NoTcsjvn@crateapi.bvkbzec.mongodb.net/?retryWrites=true&w=majority";
+
+const uri: string = process.env.MONGODB_URI || ""; // Assuming MONGODB_URI is defined in your .env file
 
 app.get("/api/user", (req, res) => {
   console.log(req);
