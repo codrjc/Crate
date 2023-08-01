@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
+import NavBar from "./components/NavBar";
+import AlbumForm from "./components/AlbumForm";
+import Page from "./components/Page";
 
 function App() {
-  useEffect(() => {
-    fetch("/api/user")
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-      });
-  }, []);
-
-  return <div className="App">{"hello"}</div>;
+  return (
+    <div>
+      <NavBar />
+      <Page />
+    </div>
+  );
 }
 
 export default App;
