@@ -1,6 +1,6 @@
-// src/components/AlbumForm.tsx
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import axios from "axios";
 
 const FormContainer = styled.form`
   display: flex;
@@ -45,15 +45,56 @@ const SubmitButton = styled.button`
 `;
 
 const AlbumForm: React.FC = () => {
+  const [albumData, setAlbumData] = useState({
+    title: "",
+    review: "",
+  });
+
+  const handleSubmit = () => {
+    console.log("submit handled");
+
+    axios
+      .post("/album", albumData)
+      .then((res) => {
+        console.log("Post successful", res.data);
+      })
+      .catch((error) => {
+        console.error("Error in post request:", error);
+      });
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setAlbumData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
   return (
     <FormContainer>
       <FormField>
-        <FormInput type="text" placeholder="Album Title" />
+        <FormInput
+          type="text"
+          name="title"
+          placeholder="Album Title"
+          value={albumData.title}
+          onChange={handleInputChange}
+        />
       </FormField>
       <FormField>
-        <FormInput id="review-field" type="text" placeholder="Review" />
+        <FormInput
+          id="review-field"
+          type="text"
+          name="review"
+          placeholder="Description"
+          value={albumData.review}
+          onChange={handleInputChange}
+        />{" "}
       </FormField>
-      <SubmitButton type="submit">Submit</SubmitButton>
+      <SubmitButton type="button" onClick={handleSubmit}>
+        Enter
+      </SubmitButton>
     </FormContainer>
   );
 };
