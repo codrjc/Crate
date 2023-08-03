@@ -13,19 +13,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const mongoose_1 = __importDefault(require("mongoose"));
-require("dotenv").config();
-const albumModel_1 = __importDefault(require("../models/albumModel"));
-const app = (0, express_1.default)();
-app.use(express_1.default.json());
-const uri = process.env.MONGODB_URI || "";
-app.get("/api/user", (req, res) => {
-    console.log(req);
-    res.json({
-        users: ["userOne", "lets see it baby"],
-    });
-});
-app.get("/albums", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const albumModel_1 = __importDefault(require("../models/albumModel")); // Import your album model
+const router = express_1.default.Router();
+// GET albums
+router.get("/albums", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const albums = yield albumModel_1.default.find({});
         res.status(200).json(albums);
@@ -35,7 +26,8 @@ app.get("/albums", (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.status(500).json(error);
     }
 }));
-app.get("/album/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+// GET album by ID
+router.get("/album/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;
         const album = yield albumModel_1.default.findById(id);
@@ -46,7 +38,8 @@ app.get("/album/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.status(500).json(error);
     }
 }));
-app.post("/album", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+// POST album
+router.post("/album", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const album = yield albumModel_1.default.create(req.body);
         res.status(200).json(album);
@@ -56,17 +49,4 @@ app.post("/album", (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.status(500).json({ message: "Error caught" + error });
     }
 }));
-app.get("/", (req, res) => {
-    res.send("Hello World");
-});
-mongoose_1.default
-    .connect(uri)
-    .then(() => {
-    console.log("Connected to MongoDB");
-    app.listen(5000, () => {
-        console.log("Server started on port 5000");
-    });
-})
-    .catch((error) => {
-    console.log(error);
-});
+exports.default = router;
