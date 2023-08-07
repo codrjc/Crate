@@ -1,8 +1,7 @@
 import fs from "fs";
 import SpotifyWebApi from "spotify-web-api-node";
 const token =
-  "BQAvlmBM11N-CqxZfGgnW76Ok7-nSBNDF7WuJnA6c6SO0FDGgM7UpdlF9MtQWCJT8SDwrbMZ9yAFIlCirwcQMu_dLNqyXp7Gn73fgUT8JUdyDI4yo4Kt9cIBmXCQXnwbFLqe5oxweJoqMIBrTMFsxvE-VHlObh223Dz66DPdLRGknIqaMdEMDJHBzN7vfrtHwfDxhmWwyrlwVKcUiItaolTt1GSIjEUs559cCR9xgkBb8fFVznZf4sEm0o3TlDn52RBQ-xeSJIC0dnFO81sWLLgRfFWu5Du7wl2A-XMq15WTRmh9muZNzGxhE9w5dg";
-
+  "BQBUNNy3W8J53cLXPaMi2k9_H2kSZyXBFI5YQNWsn9xU56V2Vie1MdgomsFE_5C3Ihyl6eCV0n8kwesHRVjo0i6grs7FkOt2lju5nZ5ZvL66hqSEiXz9TXf3tGJnK0AzYUUOJt9xTc1VAdyL4sJnkL1DAC8aBRzy8mIgb65VQVxA-idPZ9UzzBlPAN8q4MkikYzxf7qzPRfYPzD5UV---33_ZUC8AlRMXOrEcLFnQV23NqbumY0rUPk_mnX3j8IwHpZSVbzt7gRINizSRjZ_Inb8eAkWNwODl5TR59AmAAlW1vU33orNLYe1R1rfvg";
 const spotifyApi = new SpotifyWebApi();
 spotifyApi.setAccessToken(token);
 
@@ -44,9 +43,6 @@ async function getPlaylistTracks(playlistId: string, playlistName: string) {
     fields: "items",
   });
 
-  // console.log('The playlist contains these tracks', data.body);
-  // console.log('The playlist contains these tracks: ', data.body.items[0].track);
-  // console.log("'" + playlistName + "'" + ' contains these tracks:');
   let tracks = [];
 
   for (let track_obj of data.body.items) {

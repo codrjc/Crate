@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import AlbumSearchBar from "./AlbumSearchBar";
 
 const FormContainer = styled.form`
   display: flex;
@@ -49,6 +50,14 @@ const AlbumForm: React.FC = () => {
     title: "",
     review: "",
   });
+  const [searchResults, setSearchResults] = useState<
+    Array<{
+      artists: string[];
+      albumName: string;
+      images: string[];
+      id: string;
+    }>
+  >([]);
 
   const handleSubmit = () => {
     console.log("submit handled");
@@ -71,31 +80,68 @@ const AlbumForm: React.FC = () => {
     }));
   };
 
+  const handleSearchAlbums = async (searchTerm: string) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/spotify/album/${searchTerm}`
+      );
+      let albums = response.data.body.albums;
+      console.log("Fetched data:", albums.items);
+
+      const transformedResults = albums.items.map((album: any) => ({
+        artists: album.artists.map((artist: any) => artist.name),
+        albumName: album.name,
+        images: album.images.map((image: any) => image.url),
+        id: album.id,
+      }));
+
+      setSearchResults(transformedResults);
+
+      return;
+    } catch (error) {
+      console.error("API request error:", error);
+    }
+  };
+
   return (
-    <FormContainer>
-      <FormField>
-        <FormInput
-          type="text"
-          name="title"
-          placeholder="Album Title"
-          value={albumData.title}
-          onChange={handleInputChange}
-        />
-      </FormField>
-      <FormField>
-        <FormInput
-          id="review-field"
-          type="text"
-          name="review"
-          placeholder="Description"
-          value={albumData.review}
-          onChange={handleInputChange}
-        />{" "}
-      </FormField>
-      <SubmitButton type="button" onClick={handleSubmit}>
-        Enter
-      </SubmitButton>
-    </FormContainer>
+    <div>
+      <AlbumSearchBar fetchAlbums={handleSearchAlbums} />
+      <div>
+        {/* Render search results */}
+        {searchResults.map((album) => (
+          <div key={album.id}>
+            <h3>{album.albumName}</h3>
+            <p>{album.artists.join(", ")}</p>
+            {/* <img src={album.artwork} alt={album.albumName} /> */}
+            {/* Additional album information */}
+          </div>
+        ))}
+      </div>
+      <FormContainer>
+        <FormField>
+          <FormInput
+            type="text"
+            name="title"
+            placeholder="Album Title"
+            value={albumData.title}
+            onChange={handleInputChange}
+          />
+        </FormField>
+        <FormField>
+          <FormInput
+            id="review-field"
+            type="text"
+            name="review"
+            placeholder="Description"
+            value={albumData.review}
+            onChange={handleInputChange}
+          />{" "}
+        </FormField>
+        <SubmitButton type="button" onClick={handleSubmit}>
+          Enter
+        </SubmitButton>
+      </FormContainer>
+    </div>
   );
 };
 

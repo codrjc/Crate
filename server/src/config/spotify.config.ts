@@ -1,4 +1,3 @@
-import { db } from "./db.config";
 const env = process.env;
 
 export const spotifyDetails = {

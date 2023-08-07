@@ -9,34 +9,31 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AlbumController = void 0;
-const albumService_1 = require("../service/albumService");
-class AlbumController {
-    static getAllAlbums(req, res) {
+exports.SpotifyApiController = exports.updateStoredTokens = exports.storedTokens = void 0;
+const spotifyApiService_1 = require("../service/spotifyApiService");
+exports.storedTokens = {
+    accessToken: "YOUR_ACCESS_TOKEN",
+    refreshToken: "YOUR_REFRESH_TOKEN",
+};
+function updateStoredTokens(tokens) {
+    exports.storedTokens.accessToken = tokens.access_token;
+    exports.storedTokens.refreshToken = tokens.refresh_token;
+}
+exports.updateStoredTokens = updateStoredTokens;
+class SpotifyApiController {
+    static searchAlbums(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const albums = yield albumService_1.AlbumService.getAllAlbums();
+                const albumName = req.params.albumName;
+                // console.log(albumName);
+                const albums = yield spotifyApiService_1.SpotifyApiService.searchAlbums(albumName);
                 res.status(200).json(albums);
             }
             catch (error) {
-                console.error("Error getting all albums:", error);
-                res.status(500).send(`Error getting all albums: ${error}`);
-            }
-        });
-    }
-    static getAlbumById(req, res) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const { id } = req.params;
-                console.log(id);
-                const album = yield albumService_1.AlbumService.findById(id);
-                res.status(200).json(album);
-            }
-            catch (error) {
-                console.error("Error getting album:", error);
-                res.status(500).send(`Error getting album: ${error}`);
+                console.error("Searching for albums Error:", error);
+                res.status(500).send(`Searching for albums Error: ${error}`);
             }
         });
     }
 }
-exports.AlbumController = AlbumController;
+exports.SpotifyApiController = SpotifyApiController;

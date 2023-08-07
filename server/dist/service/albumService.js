@@ -8,35 +8,34 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AlbumController = void 0;
-const albumService_1 = require("../service/albumService");
-class AlbumController {
-    static getAllAlbums(req, res) {
+exports.AlbumService = void 0;
+const albumModel_1 = __importDefault(require("../models/albumModel"));
+class AlbumService {
+    static findById(id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const albums = yield albumService_1.AlbumService.getAllAlbums();
-                res.status(200).json(albums);
+                const album = yield albumModel_1.default.findById(id);
+                return album;
             }
             catch (error) {
-                console.error("Error getting all albums:", error);
-                res.status(500).send(`Error getting all albums: ${error}`);
+                throw new Error("Error fetching album with id " + id + " " + error);
             }
         });
     }
-    static getAlbumById(req, res) {
+    static getAllAlbums() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const { id } = req.params;
-                console.log(id);
-                const album = yield albumService_1.AlbumService.findById(id);
-                res.status(200).json(album);
+                const albums = yield albumModel_1.default.find({});
+                return albums;
             }
             catch (error) {
-                console.error("Error getting album:", error);
-                res.status(500).send(`Error getting album: ${error}`);
+                throw new Error("Error fetching albums: " + error);
             }
         });
     }
 }
-exports.AlbumController = AlbumController;
+exports.AlbumService = AlbumService;
