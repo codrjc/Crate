@@ -1,7 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
-require("dotenv").config(); // Load dotenv configuration
+require("dotenv").config();
 import { getMyData } from "./getme";
 import spotifyApiRoutes from "./routes/spotifyApiRoutes";
 import { connectToDatabase } from "./database/db";
@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 
 app.use(
   cors({
-    origin: "http://localhost:3000", // Replace with your React app's origin
+    origin: "http://localhost:3000",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
   })

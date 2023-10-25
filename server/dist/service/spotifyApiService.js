@@ -14,12 +14,12 @@ const SpotifyWebApi = require("spotify-web-api-node");
 const spotify_config_1 = require("../config/spotify.config");
 const spotifyApiController_1 = require("../controller/spotifyApiController");
 class SpotifyApiService {
-    static searchAlbums(albumName) {
+    static searchAlbums(albumName, limit) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 this.spotifyApi.setAccessToken(spotifyApiController_1.storedTokens.accessToken);
                 const albums = yield this.spotifyApi.searchAlbums(albumName, {
-                    limit: 3,
+                    limit: limit,
                 });
                 return albums;
             }

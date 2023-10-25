@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const cors_1 = __importDefault(require("cors"));
-require("dotenv").config(); // Load dotenv configuration
+require("dotenv").config();
 const getme_1 = require("./getme");
 const spotifyApiRoutes_1 = __importDefault(require("./routes/spotifyApiRoutes"));
 const db_1 = require("./database/db");

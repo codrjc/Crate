@@ -1,46 +1,44 @@
 import React from "react";
 import styled from "styled-components";
-
 const NavBarContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #333;
-  color: #fff;
-  padding: 1rem;
-  text-align: left;
+  flex: 1;
+  padding: 0 15%;
+  margin-bottom: 20px;
+  @media all and (max-width: 700px) {
+    flex-direction: column;
+    padding: 0;
+  }
 `;
 
 const Title = styled.h1`
-  margin: 0;
   font-size: 1.5rem;
 `;
 
-const NavigationContainer = styled.div`
+const NavigationButtonContainer = styled.div`
   display: flex;
-  align-items: center;
+  gap: 2rem;
 `;
 
 const NavigationButton = styled.button`
-  background-color: transparent;
   border: none;
-  color: #fff;
-  margin-left: 1rem;
   font-size: 1rem;
   cursor: pointer;
-
   &:hover {
     text-decoration: underline;
   }
 `;
+
 const NavBar: React.FC = () => {
   return (
     <NavBarContainer>
       <Title>Crate</Title>
-      <NavigationContainer>
+      <NavigationButtonContainer>
         <NavigationButton>Library</NavigationButton>
         <NavigationButton>Login</NavigationButton>
-      </NavigationContainer>
+      </NavigationButtonContainer>
     </NavBarContainer>
   );
 };

@@ -37,9 +37,6 @@ class AuthenticationService {
             const expires_in = data.body["expires_in"];
             this.spotifyApi.setAccessToken(access_token);
             this.spotifyApi.setRefreshToken(refresh_token);
-            console.log("access_token:", access_token);
-            console.log("refresh_token:", refresh_token);
-            console.log(`Successfully retrieved access token. Expires in ${expires_in} s.`);
             return {
                 access_token,
                 refresh_token,

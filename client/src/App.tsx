@@ -5,7 +5,7 @@ import Page from "./components/Page";
 
 function App() {
   return (
-    <div>
+    <div className="root-container">
       <NavBar />
       <Page />
     </div>

@@ -24,9 +24,13 @@ class SpotifyApiController {
     static searchAlbums(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const albumName = req.params.albumName;
-                // console.log(albumName);
-                const albums = yield spotifyApiService_1.SpotifyApiService.searchAlbums(albumName);
+                let albumName = req.params.albumName;
+                let limit = Number(req.params.limit);
+                console.log(limit);
+                if (!limit) {
+                    limit = 5;
+                }
+                const albums = yield spotifyApiService_1.SpotifyApiService.searchAlbums(albumName, limit);
                 res.status(200).json(albums);
             }
             catch (error) {

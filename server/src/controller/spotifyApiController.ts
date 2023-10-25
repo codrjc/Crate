@@ -16,9 +16,15 @@ export function updateStoredTokens(tokens: TokenData) {
 export class SpotifyApiController {
   static async searchAlbums(req: Request, res: Response) {
     try {
-      const albumName = req.params.albumName;
-      // console.log(albumName);
-      const albums = await SpotifyApiService.searchAlbums(albumName);
+      let albumName = req.params.albumName;
+      let limit: number = Number(req.params.limit);
+
+      console.log(limit);
+      if (!limit) {
+        limit = 5;
+      }
+
+      const albums = await SpotifyApiService.searchAlbums(albumName, limit);
       res.status(200).json(albums);
     } catch (error) {
       console.error("Searching for albums Error:", error);

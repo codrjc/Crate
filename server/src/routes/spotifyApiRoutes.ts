@@ -5,6 +5,9 @@ const env = process.env;
 
 const spotifyApiRoutes = express.Router();
 
-spotifyApiRoutes.get("/album/:albumName", SpotifyApiController.searchAlbums);
+spotifyApiRoutes.get(
+  "/album/:albumName/:limit",
+  SpotifyApiController.searchAlbums
+);
 
 export default spotifyApiRoutes;

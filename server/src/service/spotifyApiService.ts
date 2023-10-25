@@ -9,11 +9,11 @@ export class SpotifyApiService {
     redirectUri: spotifyDetails.redirectUri,
   });
 
-  static async searchAlbums(albumName: string) {
+  static async searchAlbums(albumName: string, limit: number) {
     try {
       this.spotifyApi.setAccessToken(storedTokens.accessToken);
       const albums = await this.spotifyApi.searchAlbums(albumName, {
-        limit: 3,
+        limit: limit,
       });
       return albums;
     } catch (error) {
