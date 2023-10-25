@@ -2,4 +2,18 @@
 
 Album Sharing Platform
 
-First edit to push to remote
+1. Navigate to client directory
+
+npm start
+
+2. Navigate to server
+
+npm run
+
+3. Login (manually - will be in UI eventually)
+
+http://localhost:5000/login
+
+4. View app
+
+http://localhost:3000/
