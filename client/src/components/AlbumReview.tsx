@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { AlbumSearchResult } from "./types";
 
@@ -98,6 +98,34 @@ export interface AlbumReviewProps {
 }
 
 const AlbumReview = ({ album }: AlbumReviewProps) => {
+  const [reviewText, setReviewText] = useState("");
+
+  const handleAddToCrate = async () => {
+    const data = {
+      albumId: album?.id, // Assuming album has an id property
+      review: reviewText,
+    };
+
+    try {
+      const response = await fetch("/review", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        alert("Review added successfully!");
+        setReviewText(""); // Reset the review text after successful submission
+      } else {
+        alert("Failed to add review");
+      }
+    } catch (error) {
+      console.error("Error adding review:", error);
+    }
+  };
+
   return (
     <AlbumReviewContainer>
       <LeftColumn>
@@ -108,8 +136,12 @@ const AlbumReview = ({ album }: AlbumReviewProps) => {
           <ScrollableTitle>{album?.albumName}</ScrollableTitle>
         </Title>
         <SubTitle>{album?.artists}</SubTitle>
-        <TextInput placeholder="Write your review here ..." />
-        <SubmitButton>Add to the crate</SubmitButton>
+        <TextInput
+          value={reviewText}
+          onChange={(e) => setReviewText(e.target.value)}
+          placeholder="Write your review here ..."
+        />{" "}
+        <SubmitButton onClick={handleAddToCrate}>Add to the crate</SubmitButton>
       </RightColumn>
     </AlbumReviewContainer>
   );

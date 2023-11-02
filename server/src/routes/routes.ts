@@ -2,6 +2,7 @@ import express from "express";
 import { AlbumController } from "../controller/albumController";
 import { HealthController } from "../controller/healthController";
 import { AuthenticationController } from "../controller/authenticationController";
+import { ReviewController } from "../controller/reviewController";
 const router = express.Router();
 
 router.get("/health", HealthController.healthCheck);
@@ -9,11 +10,12 @@ router.get("/health", HealthController.healthCheck);
 router.get("/login", AuthenticationController.login);
 router.get("/callback", AuthenticationController.callback);
 
-router.get("/albums", AlbumController.getAllAlbums);
-router.get("/album/:id", AlbumController.getAlbumById);
+// router.get("/albums/:id?", AlbumController.getAlbums);
+router.post("/review", ReviewController.create);
+
 export default router;
 
-// // POST album
+// POST album
 // router.post("/album", async (req, res) => {
 //   try {
 //     const album = await Album.create(req.body);

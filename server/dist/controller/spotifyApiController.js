@@ -26,7 +26,6 @@ class SpotifyApiController {
             try {
                 let albumName = req.params.albumName;
                 let limit = Number(req.params.limit);
-                console.log(limit);
                 if (!limit) {
                     limit = 5;
                 }

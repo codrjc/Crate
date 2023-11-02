@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { AlbumService } from "../service/albumService";
-import IAlbum from "../models/albumModel";
 import { SpotifyApiService } from "../service/spotifyApiService";
 import { TokenData, StoredToken } from "../types/types";
 export let storedTokens: StoredToken = {
@@ -19,7 +18,6 @@ export class SpotifyApiController {
       let albumName = req.params.albumName;
       let limit: number = Number(req.params.limit);
 
-      console.log(limit);
       if (!limit) {
         limit = 5;
       }

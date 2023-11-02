@@ -8,7 +8,7 @@ npm start
 
 2. Navigate to server
 
-npm run
+npm run serve
 
 3. Login (manually - will be in UI eventually)
 
