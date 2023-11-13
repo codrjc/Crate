@@ -13,6 +13,7 @@ router.get("/login", authenticationController_1.AuthenticationController.login);
 router.get("/callback", authenticationController_1.AuthenticationController.callback);
 // router.get("/albums/:id?", AlbumController.getAlbums);
 router.post("/review", reviewController_1.ReviewController.create);
+router.get("/review/all", reviewController_1.ReviewController.getAll);
 exports.default = router;
 // POST album
 // router.post("/album", async (req, res) => {

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 const NavBarContainer = styled.div`
   display: flex;
@@ -36,7 +37,9 @@ const NavBar: React.FC = () => {
     <NavBarContainer>
       <Title>Crate</Title>
       <NavigationButtonContainer>
-        <NavigationButton>Library</NavigationButton>
+        <NavigationButton>
+          <Link to="/mosaic">Mosaic</Link>
+        </NavigationButton>
         <NavigationButton>Login</NavigationButton>
       </NavigationButtonContainer>
     </NavBarContainer>

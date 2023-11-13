@@ -15,8 +15,8 @@ class ReviewController {
     static create(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const { albumId, review, userId } = req.body;
-                if (!albumId || !review || !userId) {
+                const { albumId, review, userId, imageUrl } = req.body;
+                if (!albumId || !review || !userId || !imageUrl) {
                     return res
                         .status(400)
                         .json({ message: "Both albumId, userId & review are required" });
@@ -25,6 +25,7 @@ class ReviewController {
                     albumId,
                     review,
                     userId,
+                    imageUrl,
                 });
                 console.log(newReview);
                 const savedReview = yield newReview.save(); // Save the review to the database
@@ -32,6 +33,18 @@ class ReviewController {
                     message: "Review created successfully",
                     review: savedReview,
                 });
+            }
+            catch (error) {
+                console.error(error);
+                res.status(500).json({ message: "Internal Server Error" });
+            }
+        });
+    }
+    static getAll(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const reviews = yield reviewModel_1.Review.find(); // Find all reviews in the database
+                res.status(200).json({ reviews });
             }
             catch (error) {
                 console.error(error);

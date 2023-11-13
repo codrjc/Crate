@@ -10,6 +10,7 @@ const AlbumReviewContainer = styled.div`
   border-radius: 10px;
   border-radius: 10px;
   margin-top: 20px;
+  margin-bottom: 20px;
 `;
 
 const LeftColumn = styled.div`
@@ -101,10 +102,16 @@ const AlbumReview = ({ album }: AlbumReviewProps) => {
   const [reviewText, setReviewText] = useState("");
 
   const handleAddToCrate = async () => {
+    console.log(album);
+
     const data = {
-      albumId: album?.id, // Assuming album has an id property
+      albumId: album.id,
+      userId: "5e506f3c56233d08f79bc8f3",
       review: reviewText,
+      imageUrl: album?.images[0],
     };
+
+    console.log(data);
 
     try {
       const response = await fetch("/review", {
@@ -114,13 +121,6 @@ const AlbumReview = ({ album }: AlbumReviewProps) => {
         },
         body: JSON.stringify(data),
       });
-
-      if (response.ok) {
-        alert("Review added successfully!");
-        setReviewText(""); // Reset the review text after successful submission
-      } else {
-        alert("Failed to add review");
-      }
     } catch (error) {
       console.error("Error adding review:", error);
     }

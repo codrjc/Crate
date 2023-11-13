@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import AlbumSearchBar from "./AlbumSearchBar";
+import AlbumSearchBar from "../components/AlbumSearchBar";
 import axios from "axios";
-import AlbumSearchResults from "./AlbumSearchResults";
-import { AlbumSearchResult } from "./types";
-import AlbumReview from "./AlbumReview";
+import AlbumSearchResults from "../components/AlbumSearchResults";
+import { AlbumSearchResult } from "../components/types";
+import AlbumReview from "../components/AlbumReview";
 
 const PageContainer = styled.div`
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   gap: 40px;
 `;
@@ -47,10 +48,26 @@ const Page: React.FC = () => {
 
       setSearchResults(transformedResults);
 
+      console.log(transformedResults);
+
+      // Scroll to the search results section
+      document
+        .getElementById("searchResults")
+        ?.scrollIntoView({ behavior: "smooth", block: "center" });
+
       return;
     } catch (error) {
       console.error("API request error:", error);
     }
+  };
+
+  const handleSelectAlbum = (album: AlbumSearchResult) => {
+    setSelectedAlbum(album);
+
+    // Scroll to the album review section
+    document
+      .getElementById("albumReview")
+      ?.scrollIntoView({ behavior: "smooth", block: "center" });
   };
 
   return (
@@ -58,17 +75,17 @@ const Page: React.FC = () => {
       <SearchBarContainer>
         <AlbumSearchBar fetchAlbums={handleSearchAlbums} />
       </SearchBarContainer>
-      <AlbumSearchResults
-        searchResults={searchResults}
-        onAlbumSelect={(album) => setSelectedAlbum(album)}
-      />
-      {selectedAlbum ? <AlbumReview album={selectedAlbum} /> : ""}
-
-      {/* {searchResults.length > 0 && (
-        <StyledSearchIcon>
-          <ArrowDown />
-        </StyledSearchIcon>
-      )} */}
+      <div id="searchResults">
+        <AlbumSearchResults
+          searchResults={searchResults}
+          onAlbumSelect={handleSelectAlbum}
+        />
+      </div>
+      {selectedAlbum && (
+        <div id="albumReview">
+          <AlbumReview album={selectedAlbum} />
+        </div>
+      )}
     </PageContainer>
   );
 };

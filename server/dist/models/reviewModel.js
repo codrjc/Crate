@@ -39,6 +39,9 @@ const reviewSchema = new mongoose_1.default.Schema({
         ref: "User",
         required: true,
     },
+    imageUrl: {
+        type: String,
+    },
 }, {
     timestamps: true,
 });

@@ -12,6 +12,7 @@ router.get("/callback", AuthenticationController.callback);
 
 // router.get("/albums/:id?", AlbumController.getAlbums);
 router.post("/review", ReviewController.create);
+router.get("/review/all", ReviewController.getAll);
 
 export default router;
 

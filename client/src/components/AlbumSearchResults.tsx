@@ -99,7 +99,6 @@ const AlbumSearchResults = ({
   ) => {
     setDisplayedAlbum({ albumName, artists, releaseDate, id });
     const selectedAlbum = searchResults.find((res) => res.id === id);
-    console.log(selectedAlbum);
     if (selectedAlbum) {
       onAlbumSelect(selectedAlbum); // Pass the selected album to the parent component
     }

@@ -1,14 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import NavBar from "./components/NavBar";
-import Page from "./components/Page";
+import Page from "./pages/Page";
+import { MosaicPage } from "./pages/MosaicPage"; // Import the NewPage component
 
 function App() {
   return (
-    <div className="root-container">
-      <NavBar />
-      <Page />
-    </div>
+    <Router>
+      <div className="root-container">
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<Page />} />
+          <Route path="/mosaic" element={<MosaicPage />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

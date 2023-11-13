@@ -15,6 +15,8 @@
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-p5": "^1.4.1",
+    "react-router-dom": "^6.18.0",
     "react-scripts": "5.0.1",
     "styled-components": "^6.0.5",
     "typescript": "^4.9.5",
@@ -47,6 +49,7 @@
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@svgr/webpack": "^8.1.0",
-    "@types/lodash": "^4.14.196"
+    "@types/lodash": "^4.14.196",
+    "@types/p5": "^1.7.3"
   }
 }

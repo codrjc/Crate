@@ -5,6 +5,7 @@ export interface IReview extends Document {
   review: string;
   albumId: string;
   userId: IUser | mongoose.Types.ObjectId;
+  imageUrl: string;
 }
 
 const reviewSchema: Schema<IReview> = new mongoose.Schema(
@@ -22,6 +23,9 @@ const reviewSchema: Schema<IReview> = new mongoose.Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
+    },
+    imageUrl: {
+      type: String,
     },
   },
   {
